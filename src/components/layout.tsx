@@ -5,8 +5,8 @@ import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-const name = "Fucking Name";
-export const siteTitle = "Fucking site title";
+const name = "Live meta";
+export const siteTitle = "Live meta";
 
 interface Layout {
   children: ReactNode;
@@ -38,25 +38,7 @@ export default function Layout({ children, home }: Layout) {
             />
             <h1 className={utilStyles.heading2Xl}>{name}</h1>
           </>
-        ) : (
-          <>
-            <Link href="/">
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={utilStyles.borderCircle}
-                height={108}
-                width={108}
-                alt=""
-              />
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/" className={utilStyles.colorInherit}>
-                {name}
-              </Link>
-            </h2>
-          </>
-        )}
+        ) : null}
       </header>
       <main>{children}</main>
       {!home && (

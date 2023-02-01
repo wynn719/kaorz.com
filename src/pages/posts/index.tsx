@@ -1,37 +1,44 @@
 import Head from "next/head";
+import Link from "next/link";
 import Layout, { siteTitle } from "@/components/layout";
-import { marked } from "marked";
-import { readFile } from "fs/promises";
-import path from 'path'
+import utilStyles from "@/styles/utils.module.css";
+import { getSortedPostsData } from "@/lib/posts";
 
-interface PostProps {
-  postContent: string;
+interface PostHomeProps {
+  allPostsData: any[];
 }
 
-export default function FirstPost({ postContent }: PostProps) {
-  const markdown = marked(postContent);
-
+export default function PostHome({ allPostsData }: PostHomeProps) {
   return (
-    <Layout home={false}>
+    <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <h2>
-        Post content
-      </h2>
-      <div dangerouslySetInnerHTML={{ __html: markdown }}></div>
+      <section className={utilStyles.headingMd}>
+        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <ul className={utilStyles.list}>
+          {allPostsData.map(({ id, excerpt, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              <Link href={`/posts/${id}`}>{title}</Link>
+              {excerpt && (
+                <div>
+                  <small>{excerpt}</small>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
     </Layout>
   );
 }
 
 export async function getStaticProps() {
-  const filePath = path.resolve('./src/posts/2015-02-13-my-blog-version1.0-description.md')
-  const postFile = await readFile(filePath);
-  const postContent = postFile.toString();
+  const allPostsData = await getSortedPostsData();
 
   return {
     props: {
-      postContent,
-    }
-  }
+      allPostsData,
+    },
+  };
 }
