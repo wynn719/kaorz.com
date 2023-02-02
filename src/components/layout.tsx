@@ -3,8 +3,8 @@ import styles from "./layout.module.css";
 import Link from "next/link";
 import { ReactNode } from "react";
 import banner from "@/assets/imgs/banner/banner.jpg";
-
-console.log(banner);
+import { Navigation } from "@/components/navigation";
+import { TopDown } from "@/components/top-down";
 
 const name = "Live meta";
 export const siteTitle = "Live meta";
@@ -27,7 +27,14 @@ export default function Layout({ children, home }: Layout) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <main>
-        <div id="page-content" style={{ backgroundImage: `url(${banner.src})` }}>
+        <header id="header">
+          <Navigation></Navigation>
+        </header>
+
+        <div
+          id="page-content"
+          style={{ backgroundImage: `url(${banner.src})` }}
+        >
           <div className="wrapper">
             <div className="home">
               <div className="container">
@@ -36,16 +43,23 @@ export default function Layout({ children, home }: Layout) {
                   <p className="blog-author">Wayne Zheng</p>
                 </div>
                 <div>{children}</div>
+                {home && (
+                  <footer className="footer">
+                    <p className="copyright">
+                      <span className="copyright-flag">Copyright © 2015</span>
+                      <Link href="/abort" title="Abort me">
+                        Bowei Zheng.
+                      </Link>
+                    </p>
+                  </footer>
+                )}
               </div>
             </div>
           </div>
         </div>
+
+        <TopDown></TopDown>
       </main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">← Back to home</Link>
-        </div>
-      )}
     </div>
   );
 }

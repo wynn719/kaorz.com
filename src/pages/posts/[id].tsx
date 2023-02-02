@@ -1,6 +1,9 @@
 import Head from "next/head";
-import Layout, { siteTitle } from "@/components/layout";
+import type { GetStaticPaths, GetStaticProps } from "next";
+import Layout from "@/components/layout";
+import { ArticleItem } from "@/components/article";
 import { getPostIds, getPostData } from "@/lib/posts";
+
 
 interface PostProps {
   postData: Record<string, any>;
@@ -12,32 +15,29 @@ export default function Post({ postData }: PostProps) {
       <Head>
         <title>{postData.title}</title>
       </Head>
-      <h2>{postData.title}</h2>
-      <div>
-        {postData.tag?.map((item) => (
-          <span key={item}>{item}</span>
-        ))}
-      </div>
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }}></div>
+      <ArticleItem post={postData} single showContent ></ArticleItem>
     </Layout>
   );
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await getPostIds();
 
   return {
     paths,
     fallback: false,
   };
-}
+};
 
-export async function getStaticProps({ params }: any) {
-  const postData = await getPostData(params.id);
+export const getStaticProps: GetStaticProps<{}, { id: string }> = async ({
+  params,
+}) => {
+  const postId = params?.id || "";
+  const postData = await getPostData(postId);
 
   return {
     props: {
       postData,
     },
   };
-}
+};

@@ -1,35 +1,12 @@
 import Head from "next/head";
+import type { GetStaticProps } from "next";
 import Link from "next/link";
 import Layout, { siteTitle } from "@/components/layout";
+import { ArticleItem } from "@/components/article";
 import { getSortedPostsData } from "@/lib/posts";
 
 interface PostHomeProps {
   allPostsData: any[];
-}
-
-interface ArticleItemProps {
-  post: any;
-}
-
-function ArticleItem({ post }: ArticleItemProps) {
-  return (
-    <article className="single-post life-single-post">
-      <header>
-        <h3 className="title">
-          <Link href={`/posts/${post.id}`} title={post.title}>
-            {post.title}
-          </Link>
-        </h3>
-        <div className="tags">
-          {post.tag?.map((item: string) => (
-            <span key={item}>{item}</span>
-          ))}
-        </div>
-      </header>
-      <div className="datetime"></div>
-      {post.excerpt && <p className="art-content">{post.excerpt}</p>}
-    </article>
-  );
 }
 
 export default function PostHome({ allPostsData }: PostHomeProps) {
@@ -45,9 +22,9 @@ export default function PostHome({ allPostsData }: PostHomeProps) {
             <h1 className="section-title">Recent Post</h1>
           </div>
           <div className="tech-posts">
-          {allPostsData.map((postItem) => (
-            <ArticleItem key={postItem.id} post={postItem}></ArticleItem>
-          ))}
+            {allPostsData.map((postItem) => (
+              <ArticleItem key={postItem.id} post={postItem}></ArticleItem>
+            ))}
           </div>
         </section>
       </div>
@@ -55,7 +32,7 @@ export default function PostHome({ allPostsData }: PostHomeProps) {
   );
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = await getSortedPostsData();
 
   return {
@@ -63,4 +40,4 @@ export async function getStaticProps() {
       allPostsData,
     },
   };
-}
+};
