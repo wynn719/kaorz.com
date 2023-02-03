@@ -462,6 +462,12 @@ li {
   letter-spacing: 0.5px;
 }
 
+.home .container .single-post .excerpt {
+  margin-bottom: 70px;
+  color: #444;
+  letter-spacing: 0.5px;
+}
+
 .home .container .single-post .art-content a {
   color: #63a67f;
 }
@@ -607,6 +613,10 @@ li {
   float: right;
   color: #7e7e7e;
   font-size: 14px;
+}
+
+.disqus_thread {
+  padding: 0 85px;
 }
 
 .about {

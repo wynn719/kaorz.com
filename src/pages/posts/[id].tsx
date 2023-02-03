@@ -3,7 +3,7 @@ import type { GetStaticPaths, GetStaticProps } from "next";
 import Layout from "@/components/layout";
 import { ArticleItem } from "@/components/article";
 import { getPostIds, getPostData } from "@/lib/posts";
-
+import { Disqus } from "@/components/disqus";
 
 interface PostProps {
   postData: Record<string, any>;
@@ -15,7 +15,9 @@ export default function Post({ postData }: PostProps) {
       <Head>
         <title>{postData.title}</title>
       </Head>
-      <ArticleItem post={postData} single showContent ></ArticleItem>
+      <ArticleItem post={postData} single showContent>
+        <Disqus></Disqus>
+      </ArticleItem>
     </Layout>
   );
 }

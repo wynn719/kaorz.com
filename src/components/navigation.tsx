@@ -19,7 +19,7 @@ export function Navigation() {
     // },
     // {
     //   name: "Tags",
-    //   path: "/posts/tags",
+    //   path: "/tags",
     // },
     {
       name: "Abort Me",
@@ -30,7 +30,10 @@ export function Navigation() {
   return (
     <ul className="main-nav">
       {navigation.map((n) => (
-        <li className={classNames({ selected: n.path === router.pathname })} key={n.name}>
+        <li
+          className={classNames({ selected: n.path === router.pathname })}
+          key={n.name}
+        >
           <Link href={n.path} title={n.name}>
             {n.name}
           </Link>
