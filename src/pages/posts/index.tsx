@@ -19,7 +19,7 @@ export default function PostHome({ allPostsData }: PostHomeProps) {
       <div className="content">
         <section id="tech-posts">
           <div className="section-header">
-            <h1 className="section-title">Recent Post</h1>
+            <div className="section-title">Recent Post</div>
           </div>
           <div className="tech-posts">
             {allPostsData.map((postItem) => (

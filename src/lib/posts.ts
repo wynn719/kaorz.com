@@ -24,11 +24,12 @@ export async function getSortedPostsData() {
     const fileContents = await fs.readFile(fullPath, 'utf-8');
     const matterResult = matter(fileContents);
     const matterResData = matterResult.data as PostMatter;
+    const time = matterResData.time ? dayjs(matterResData.time).format('YYYY-MM-DD') : '';
 
     return {
       ...matterResData,
       id,
-      time: dayjs(matterResData.time).format('YYYY-MM-DD'),
+      time,
     };
   }));
 

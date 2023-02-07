@@ -47,9 +47,8 @@ function Internships() {
       <ul>
         <li className="internship">
           <p>
-            <span className="place">腾讯实习</span>
+            <span className="place">腾讯</span>
             <span className="position">web前端开发</span>
-            <span className="time">2015-07-04 - 2015-12-21</span>
           </p>
         </li>
         <li>

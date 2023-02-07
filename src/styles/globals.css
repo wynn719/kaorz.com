@@ -309,6 +309,8 @@ li {
 
 .home .container #tech-posts .section-title {
   color: #fff;
+  font-size: 24px;
+  padding-left: 10px;
 }
 
 .home .container .recent-posts .pagination {
@@ -507,23 +509,15 @@ li {
   height: 40px;
   line-height: 40px;
   text-align: center;
-  background-color: #fff;
+  margin-right: 3px;
 }
 
 .about .social-links ul .douban {
-  color: #63a67f;
-}
-
-.about .social-links ul .douban:hover {
   background-color: #63a67f;
   color: #fff;
 }
 
 .about .social-links ul .zhihu {
-  color: #0767c8;
-}
-
-.about .social-links ul .zhihu:hover {
   background-color: #0767c8;
   color: #fff;
 }
