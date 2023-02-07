@@ -1,0 +1,33 @@
+.scroll-top-down {
+  position: fixed;
+  top: 90%;
+  right: 10px;
+  margin: -45px 0 0;
+  width: 40px;
+  height: 90px;
+}
+
+.scroll-top-down .scroll {
+  cursor: pointer;
+  width: 0;
+  height: 0;
+  border: 20px solid gray;
+  transition: border-color 0.8s;
+}
+
+.scroll-top-down .top {
+  border-color: transparent transparent #ccc;
+  margin-bottom: 10px;
+}
+
+.scroll-top-down .top:hover {
+  border-color: transparent transparent #63a67f;
+}
+
+.scroll-top-down .down {
+  border-color: #ccc transparent transparent;
+}
+
+.scroll-top-down .down:hover {
+  border-color: #63a67f transparent transparent;
+}

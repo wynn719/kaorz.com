@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import banner from "@/assets/imgs/banner/banner.jpg";
 import { Navigation } from "@/components/navigation";
 import { TopDown } from "@/components/top-down";
+import classNames from "classnames";
 
 const name = "Live meta";
 export const siteTitle = "Live meta";
@@ -27,16 +28,17 @@ export default function Layout({ children, home }: Layout) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <main>
-        <header id="header">
+        <header id="header" className={styles["page-header"]}>
           <Navigation></Navigation>
         </header>
 
         <div
           id="page-content"
+          className={styles["page-content"]}
           style={{ backgroundImage: `url(${banner.src})` }}
         >
           <div className="wrapper">
-            <div className="home">
+            <div className={classNames(["home", styles["home"]])}>
               <div className="container">
                 <div className="banner">
                   <h1 className="blog-title">Living Chaplin</h1>
@@ -47,7 +49,7 @@ export default function Layout({ children, home }: Layout) {
                   <footer className="footer">
                     <p className="copyright">
                       <span className="copyright-flag">Copyright © 2015</span>
-                      <Link href="/abort" title="Abort me">
+                      <Link href="/about" title="About me">
                         Bowei Zheng.
                       </Link>
                     </p>

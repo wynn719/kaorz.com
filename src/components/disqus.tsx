@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import styles from "./disqus.module.css";
 
 export function Disqus() {
   useEffect(() => {
@@ -9,5 +10,5 @@ export function Disqus() {
     (d.head || d.body).appendChild(s);
   }, []);
 
-  return <div id="disqus_thread" className="disqus_thread"></div>;
+  return <div id="disqus_thread" className={styles.disqus_thread}></div>;
 }

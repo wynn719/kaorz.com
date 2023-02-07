@@ -1,27 +1,32 @@
 import Link from "next/link";
 import Layout from "@/components/layout";
 import { useState } from "react";
-import avatar from '@/assets/imgs/avatar.jpg';
-import wechat from '@/assets/imgs/wechat.jpg';
+import avatar from "@/assets/imgs/avatar.jpg";
+import wechat from "@/assets/imgs/wechat.jpg";
 
 function UserInfo() {
   const [className, setClassName] = useState("");
   const [infoPic, setInfoPic] = useState(avatar.src);
 
+  function showWechat() {
+    setClassName("hover");
+    setInfoPic(wechat.src);
+  }
+
+  function hideWechat() {
+    setClassName("");
+    setInfoPic(avatar.src);
+  }
+
   return (
     <div className="user-info">
       <div
         id="me-pic"
-        style={{ backgroundImage: `url(${infoPic})`}}
+        style={{ backgroundImage: `url(${infoPic})` }}
         className={className}
-        onMouseOut={() => {
-          setClassName("");
-          setInfoPic(avatar.src);
-        }}
-        onAnimationEnd={() => {
-          setClassName("hover")
-          setInfoPic(wechat.src);
-        }}
+        onClick={showWechat}
+        onMouseOut={hideWechat}
+        onAnimationEnd={showWechat}
       ></div>
 
       <div className="me-intro">

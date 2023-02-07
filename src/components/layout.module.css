@@ -1,15 +1,27 @@
-.container {
-  max-width: 36rem;
-  padding: 0 1rem;
-  margin: 3rem auto 6rem;
+.page-header {
+  width: 100%;
+  height: 33px;
+  background-color: #242323;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999;
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.page-content {
+  min-width: var(--min-width);
+  padding-top: 452px;
+  background-color: #342522;
+  background-attachment: fixed;
+  background-size: 2000px;
+  background-repeat: no-repeat;
+  background-position: center 0;
+  opacity: 1;
+  transition: 0.3s opacity, 0.6s background-size;
 }
 
-.backToHome {
-  margin: 3rem 0 0;
+.home {
+  max-width: var(--max-width);
+  position: relative;
+  margin: 0 auto;
 }

@@ -1,12 +1,8 @@
 import Link from "next/link";
 import classNames from "classnames";
-import { useRef, useEffect, ReactElement } from "react";
-import highlight from "highlight.js";
-import javascript from "highlight.js/lib/languages/javascript";
+import { ReactElement } from "react";
+import styles from "./article.module.css";
 import "highlight.js/styles/github.css";
-
-highlight.configure({ ignoreUnescapedHTML: true });
-highlight.registerLanguage("javascript", javascript);
 
 export interface ArticleItemProps {
   post: Record<string, any>;
@@ -21,24 +17,16 @@ export function ArticleItem({
   showContent,
   children,
 }: ArticleItemProps) {
-  const postContentRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    postContentRef.current?.querySelectorAll("pre code").forEach((el) => {
-      highlight.highlightElement(el as HTMLDivElement);
-    });
-  }, []);
-
   return (
     <div className={classNames({ single })}>
-      <article className="single-post">
+      <article className={styles["single-post"]}>
         <header>
           {single ? (
             <header>
-              <h1 className="title">{post.title}</h1>
+              <h1 className={styles["title"]}>{post.title}</h1>
             </header>
           ) : (
-            <h3 className="title">
+            <h3 className={styles["title"]}>
               <Link
                 href={`/posts/${encodeURIComponent(post.id)}`}
                 title={post.title}
@@ -47,21 +35,22 @@ export function ArticleItem({
               </Link>
             </h3>
           )}
-          <div className="datetime">{post.time}</div>
+          <div className={styles["datetime"]}>{post.time}</div>
           {post.tag && (
-            <div className="tags">
+            <div className={styles["tags"]}>
               {post.tag.map((item: string) => (
-                <span key={item}>{item}</span>
+                <span className={styles["tag"]} key={item}>
+                  {item}
+                </span>
               ))}
             </div>
           )}
         </header>
-        {!single && <p className="excerpt">{post.excerpt}</p>}
+        {!single && <p className={styles["excerpt"]}>{post.excerpt}</p>}
         {showContent && (
           <div
-            className="art-content"
+            className={styles["art-content"]}
             dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-            ref={postContentRef}
           ></div>
         )}
       </article>

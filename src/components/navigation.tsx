@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import classNames from "classnames";
+import styles from "./navigation.module.css";
 
 export function Navigation() {
   const router = useRouter();
@@ -28,13 +29,17 @@ export function Navigation() {
   ];
 
   return (
-    <ul className="main-nav">
+    <ul className={styles["main-nav"]}>
       {navigation.map((n) => (
-        <li
-          className={classNames({ selected: n.path === router.pathname })}
-          key={n.name}
-        >
-          <Link href={n.path} title={n.name}>
+        <li className={classNames([styles["nav-item"]])} key={n.name}>
+          <Link
+            className={classNames([
+              styles["nav-item-link"],
+              n.path === router.pathname ? styles["nav-item-selected"] : null,
+            ])}
+            href={n.path}
+            title={n.name}
+          >
             {n.name}
           </Link>
         </li>

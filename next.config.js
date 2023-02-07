@@ -1,7 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  basePath: process.env.BASE_PATH,
   reactStrictMode: true,
-  output: 'standalone'
+  output: 'standalone',
+  compress: false, // Gzip by nginx
+  async redirects() {
+    return [
+      {
+        source: '/blog',
+        destination: '/blog/posts',
+        permanent: true,
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig

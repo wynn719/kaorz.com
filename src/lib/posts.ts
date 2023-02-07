@@ -4,6 +4,11 @@ import matter from 'gray-matter'
 import { marked } from 'marked'
 import dayjs from 'dayjs';
 import { flattenDeep, uniq } from 'lodash-es';
+import hljs from 'highlight.js';
+import javascript from "highlight.js/lib/languages/javascript";
+
+hljs.configure({ ignoreUnescapedHTML: true });
+hljs.registerLanguage("javascript", javascript);
 
 interface PostMatter {
   time?: string;
@@ -66,7 +71,13 @@ export async function getPostData(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = await fs.readFile(fullPath, 'utf8');
   const matterResult = matter(fileContents);
-  const contentHtml = marked(matterResult.content);
+  const parseImgContent = matterResult.content.replace('/public/imgs/posts', `${process.env.BASE_PATH}/public/imgs/posts`);
+  const contentHtml = marked(parseImgContent, {
+    highlight(code, lang) {
+      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+      return hljs.highlight(code, { language }).value;
+    },
+  });
 
   return {
     ...matterResult.data,
