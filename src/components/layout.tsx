@@ -6,9 +6,12 @@ import banner from "@/assets/imgs/banner/banner.jpg";
 import { Navigation } from "@/components/navigation";
 import { TopDown } from "@/components/top-down";
 import classNames from "classnames";
+import { Analytic } from "@/components/analytic";
 
 const name = "Live meta";
 export const siteTitle = "Live meta";
+
+const isProduction = process.env.NODE_ENV === "production";
 
 interface Layout {
   children: ReactNode;
@@ -62,6 +65,7 @@ export default function Layout({ children, home }: Layout) {
 
         <TopDown></TopDown>
       </main>
+      {isProduction && <Analytic></Analytic>}
     </div>
   );
 }
