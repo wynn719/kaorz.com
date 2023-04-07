@@ -13,6 +13,32 @@ export const siteTitle = "Live meta";
 
 const isProduction = process.env.NODE_ENV === "production";
 
+function Banner() {
+  return (
+    <div className="text-center h-32 mb-24">
+      <h1 className="text-5xl leading-normal mt-9 font-normal font-mono text-white">
+        Living Chaplin
+      </h1>
+      <p className="text-lg leading-normal text-white italic tracking-widest">
+        Wayne Zheng
+      </p>
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="h-5 bg-slate-200 pt-2 pb-8">
+      <p className="h-5 text-center text-gray-600">
+        <span className="mr-1">Copyright © 2015</span>
+        <Link className="text-green" href="/about" title="About me">
+          Bowei Zheng.
+        </Link>
+      </p>
+    </footer>
+  );
+}
+
 interface Layout {
   children: ReactNode;
   home: boolean;
@@ -31,33 +57,35 @@ export default function Layout({ children, home }: Layout) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <main>
-        <header id="header" className={styles["page-header"]}>
-          <Navigation></Navigation>
-        </header>
+        <Navigation></Navigation>
 
         <div
           id="page-content"
-          className={styles["page-content"]}
+          className={classNames(
+            "w-full",
+            "pt-[452px]",
+            "bg-fixed",
+            "bg-center",
+            "bg-top",
+            "bg-no-repeat",
+            "bg-[length:2000px]"
+          )}
           style={{ backgroundImage: `url(${banner.src})` }}
         >
           <div className="wrapper">
-            <div className={classNames(["home", styles["home"]])}>
-              <div className="container">
-                <div className="banner">
-                  <h1 className="blog-title">Living Chaplin</h1>
-                  <p className="blog-author">Wayne Zheng</p>
-                </div>
+            <div
+              className={classNames(
+                ["home"],
+                "relative",
+                "w-full",
+                "mx-auto",
+                "my-0"
+              )}
+            >
+              <div className="container absolute left-0 -top-[419px] w-full">
+                <Banner></Banner>
                 <div>{children}</div>
-                {home && (
-                  <footer className="footer">
-                    <p className="copyright">
-                      <span className="copyright-flag">Copyright © 2015</span>
-                      <Link href="/about" title="About me">
-                        Bowei Zheng.
-                      </Link>
-                    </p>
-                  </footer>
-                )}
+                {home && <Footer></Footer>}
               </div>
             </div>
           </div>

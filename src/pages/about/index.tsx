@@ -105,7 +105,7 @@ function SocialLinks() {
 export default function About() {
   return (
     <Layout home={false}>
-      <div className="about">
+      <div className="about bg-white dark:bg-[#222831] text-slate-800 dark:text-slate-300 py-16">
         <UserInfo></UserInfo>
         <Internships></Internships>
         <Learning></Learning>
