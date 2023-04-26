@@ -10,7 +10,7 @@ interface PostProps {
 
 export default function Post({ postData }: PostProps) {
   return (
-    <Layout home={false}>
+    <Layout>
       <Head>
         <title>{postData.title}</title>
       </Head>

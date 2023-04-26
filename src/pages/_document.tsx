@@ -6,6 +6,7 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body>
+        {/* Check if dark mode is enabled during server-side rendering. */}
         <Script
           id="dark-mode-checker"
           strategy="beforeInteractive"

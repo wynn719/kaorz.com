@@ -84,7 +84,17 @@ export function Navigation() {
         "bg-[#242323]"
       )}
     >
-      <ul className={classNames("flex", "items-center", "flex-1", "mx-auto")}>
+      <ul
+        className={classNames(
+          "flex",
+          "items-center",
+          "flex-1",
+          "mx-auto",
+          "font-serif",
+          "tracking-wide",
+          "font-bold"
+        )}
+      >
         {navigation.map((n) => (
           <li
             className={classNames(
@@ -99,6 +109,7 @@ export function Navigation() {
               className={classNames([
                 "block",
                 "transition-all",
+                "active:outline-none",
                 n.path === router.pathname ? "text-white" : "text-[#7e7e7e]",
               ])}
               href={n.path}

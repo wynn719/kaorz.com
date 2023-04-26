@@ -31,9 +31,17 @@ export function ArticleItem({
 }: ArticleItemProps) {
   return (
     <div
-      className={classNames(single ? ["bg-white dark:bg-[#222831] py-16"] : "")}
+      className={classNames(
+        single ? ["bg-gray-50 dark:bg-[#222831] py-16"] : ""
+      )}
     >
-      <article className={classNames(styles["single-post"], "tracking-widest")}>
+      <article
+        className={classNames(
+          "mx-7 mb-10",
+          "lg:mx-20 lg:mb-16",
+          "tracking-widest"
+        )}
+      >
         <header>
           {single ? (
             <header>
@@ -69,7 +77,7 @@ export function ArticleItem({
         {showContent && (
           <div
             className={classNames(
-              styles["art-content"],
+              "art-content",
               "text-slate-800 dark:text-slate-300",
               "py-4",
               "tracking-widest"
