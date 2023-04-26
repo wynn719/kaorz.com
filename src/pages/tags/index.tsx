@@ -9,7 +9,7 @@ interface TagsHomeProps {
 
 export default function TagsHome({ tags }: TagsHomeProps) {
   return (
-    <Layout home={false}>
+    <Layout>
       <div className="tags-page">
         <section className="tags">
           {tags.map((tag) => (

@@ -9,7 +9,7 @@ interface PostHomeProps {
 
 export default function PostHome({ allPostsData }: PostHomeProps) {
   return (
-    <Layout home>
+    <Layout>
       <Head>
         <title>{siteTitle}</title>
       </Head>
