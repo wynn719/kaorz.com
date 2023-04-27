@@ -7,7 +7,7 @@ import { TopDown } from "@/components/top-down";
 import classNames from "classnames";
 import { Analytic } from "@/components/analytic";
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = true || process.env.NODE_ENV === "production";
 
 function Banner() {
   return (

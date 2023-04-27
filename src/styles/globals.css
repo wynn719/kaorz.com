@@ -13,6 +13,8 @@
   --font-color: #333;
 
   --scroll-bar-width: 7px;
+  
+  --code-bg-color: #efefef;
 }
 
 @media screen and (max-width: 640px) {
@@ -25,6 +27,9 @@
 }
 
 @media (prefers-color-scheme: dark) {
+  :root {
+    --code-bg-color: #212121;
+  }
   html {
     color-scheme: dark;
   }
@@ -125,6 +130,10 @@ body {
   }
 }
 
+.art-content {
+  word-wrap: break-word;
+}
+
 /* Rich content */
 .art-content a {
   color: #63a67f;
@@ -201,15 +210,18 @@ body {
 }
 
 .art-content pre {
-  background-color: #efefef;
+  color: #fff;
+  background-color: var(--code-bg-color);
   margin: 20px 0;
   padding: 10px;
-  overflow: auto;
+  font-size: 13px;
+  overflow-x: auto;
 }
 
 .art-content blockquote {
+  color: #fff;
   margin: 20px 0;
-  border-left: 7px solid #db8160;
-  background-color: #fff;
-  padding: 10px 0.8em;
+  border-left: 7px solid #63a67f;
+  background-color: var(--code-bg-color);
+  padding: 5px 0.8em;
 }

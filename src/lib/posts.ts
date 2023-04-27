@@ -1,4 +1,5 @@
 import fs from "fs/promises";
+import fsSync from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
@@ -6,13 +7,32 @@ import dayjs from "dayjs";
 import { flattenDeep, uniq } from "lodash-es";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
-
-hljs.configure({ ignoreUnescapedHTML: true });
-hljs.registerLanguage("javascript", javascript);
+import { imageSize } from "image-size";
 
 interface PostMatter {
   time?: string;
 }
+
+hljs.configure({ ignoreUnescapedHTML: true });
+hljs.registerLanguage("javascript", javascript);
+
+marked.use({
+  renderer: {
+    // Transform out image with real size
+    image(href, title, text) {
+      if (!href) return text;
+
+      const fullPath = path.join(process.cwd(), "public", href);
+      const fileContents = fsSync.readFileSync(fullPath);
+      const size = imageSize(fileContents);
+      const realPath = `${process.env.BASE_PATH}${href}`;
+      let output = `<img src="${realPath}" alt="${text}" style="min-width: ${size.width}px;min-height: ${size.height}px"`;
+      if (title) output += ` title="${title}"`;
+
+      return output;
+    },
+  },
+});
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -78,11 +98,7 @@ export async function getPostData(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = await fs.readFile(fullPath, "utf8");
   const matterResult = matter(fileContents);
-  const parseImgContent = matterResult.content.replace(
-    "/public/imgs/posts",
-    `${process.env.BASE_PATH}/public/imgs/posts`
-  );
-  const contentHtml = marked(parseImgContent, {
+  const contentHtml = marked(matterResult.content, {
     highlight(code, lang) {
       const language = hljs.getLanguage(lang) ? lang : "plaintext";
       return hljs.highlight(code, { language }).value;
