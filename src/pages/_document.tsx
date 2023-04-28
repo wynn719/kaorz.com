@@ -12,15 +12,15 @@ export default function Document() {
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-          try {
-            var theme = localStorage.theme;
-            if (theme === 'dark' || ((!theme || theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-              document.documentElement.classList.add('dark')
-            } else {
-              document.documentElement.classList.remove('dark')
-            }
-          } catch (_) {}
-        `,
+              try {
+                var theme = localStorage.theme;
+                if (theme === 'dark' || ((!theme || theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.documentElement.classList.add('dark')
+                } else {
+                  document.documentElement.classList.remove('dark')
+                }
+              } catch (_) {}
+            `,
           }}
         ></Script>
         <Main />
