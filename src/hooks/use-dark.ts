@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "./use-media-query";
 
-export type Mode = "system" | "light" | "dark";
+export type Mode = "system" | "light" | "dark" | null;
 
 export function useDark() {
-  const [mode, setMode] = useState<Mode>("system");
+  const [mode, setMode] = useState<Mode>(null);
   const [isDark, setIsDark] = useState(false);
   const { matches: isSystemDark } = useMediaQuery(
     "(prefers-color-scheme: dark)"
@@ -36,7 +36,7 @@ export function useDark() {
     const theme = (window.localStorage.getItem("theme") || "system") as Mode;
 
     if (theme === "system") {
-      toggleDark(isSystemDark);
+      typeof isSystemDark !== "undefined" && toggleDark(isSystemDark);
     }
     setMode(theme);
   }, [isSystemDark]);

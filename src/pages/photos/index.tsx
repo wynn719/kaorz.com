@@ -1,20 +1,33 @@
 import Head from "next/head";
 import type { GetStaticProps } from "next";
 import Layout, { siteTitle } from "@/components/layout";
-import { getPhotosData } from "@/lib/photos";
+import { Photo, getPhotosData } from "@/lib/photos";
 
-interface PostHomeProps {
-  allPostsData: any[];
+interface PhotoHomeProps {
+  allPhotoData: Photo[];
 }
 
-export default function PostHome({ allPostsData }: PostHomeProps) {
+function PhotoItem({ photo }: { photo: Photo }) {
+  return <div>{photo.id}</div>;
+}
+
+export default function PhotoHome({ allPhotoData }: PhotoHomeProps) {
   return (
     <Layout>
       <Head>
         <title>{siteTitle}</title>
       </Head>
 
-      <div className="content"></div>
+      <section>
+        <div className="text-white text-2xl pl-4 pb-2 lg:text-3xl lg:pb-5">
+          Recent Post
+        </div>
+        <div className="py-10 bg-gray-50 dark:bg-[#222831]">
+          {allPhotoData.map((item) => (
+            <PhotoItem key={item.id} photo={item} />
+          ))}
+        </div>
+      </section>
     </Layout>
   );
 }

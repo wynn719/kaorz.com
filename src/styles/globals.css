@@ -154,27 +154,26 @@ body {
 }
 
 .art-content img {
-  @apply object-cover rounded-lg my-auto max-w-full;
+  @apply object-cover rounded-lg mx-auto max-w-full;
   animation: fadeIn 2s;
 }
 
 .art-content ol,
 .art-content ul {
-  @apply pl-8;
+  @apply list-inside; 
+}
+
+.art-content ol {
+  @apply list-decimal;
+}
+
+.art-content ul {
+  @apply list-disc;
 }
 
 .art-content ol li,
 .art-content ul li {
   @apply text-sm leading-normal mt-1;
-}
-
-.art-content ul li {
-  list-style: square;
-  list-style-position: outside;
-}
-
-.art-content ol li {
-  list-style: decimal;
 }
 
 .art-content pre {

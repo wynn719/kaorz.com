@@ -21,7 +21,6 @@ function ThemeButton() {
   function changeMode() {
     const idx = modes.indexOf(mode);
     const nextIdx = (idx + 1) % modes.length;
-
     updateMode(modes[nextIdx]);
   }
 
@@ -34,8 +33,9 @@ function ThemeButton() {
         />
       );
     if (mode === "dark") return <IcBaselineModeNight {...props} />;
+    if (mode === "light") return <IcBaselineLightMode {...props} />;
 
-    return <IcBaselineLightMode {...props} />;
+    return null;
   };
 
   return (
@@ -52,18 +52,10 @@ export function Navigation() {
       name: "Home",
       path: "/posts",
     },
-    // {
-    //   name: "Tech",
-    //   path: "/posts/tech",
-    // },
-    // {
-    //   name: "Life",
-    //   path: "/posts/life",
-    // },
-    // {
-    //   name: "Tags",
-    //   path: "/tags",
-    // },
+    {
+      name: "Photos",
+      path: "/photos",
+    },
     {
       name: "Abort Me",
       path: "/about",
