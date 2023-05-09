@@ -1,8 +1,7 @@
 import Link from "next/link";
 import classNames from "classnames";
 import { ReactElement } from "react";
-import styles from "./article.module.css";
-import "highlight.js/styles/github.css";
+import "highlight.js/styles/atom-one-dark.css";
 
 export interface TagProps {
   children: ReactElement | string;
@@ -10,7 +9,7 @@ export interface TagProps {
 
 export function Tag({ children }: TagProps) {
   return (
-    <span className="text-xs text-slate-100 bg-green inline-block py-1 px-1.5 transition-all">
+    <span className="text-xs text-slate-100 bg-green inline-block py-0.5 px-1.5 transition-all mr-1.5">
       {children}
     </span>
   );

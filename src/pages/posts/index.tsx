@@ -21,8 +21,16 @@ export default function PostHome({ allPostsData }: PostHomeProps) {
           Recent Post
         </div>
         <div className="py-10 bg-gray-50 dark:bg-[#222831]">
-          {allPostsData.map((postItem) => (
-            <ArticleItem key={postItem.id} post={postItem}></ArticleItem>
+          {allPostsData.map((postItem, index) => (
+            <div
+              style={{
+                animation: "enter .6s both",
+                animationDelay: `${120 * index}ms`,
+              }}
+              key={postItem.id}
+            >
+              <ArticleItem post={postItem}></ArticleItem>
+            </div>
           ))}
         </div>
       </section>

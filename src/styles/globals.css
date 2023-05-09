@@ -6,14 +6,13 @@
   --min-width: 600px;
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+  --font-mono: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --font-size: 12px;
   --font-color: #333;
 
   --scroll-bar-width: 7px;
-  
+
   --code-bg-color: #efefef;
 }
 
@@ -102,6 +101,18 @@ body {
   }
 }
 
+@keyframes enter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .art-content {
   @apply break-all;
 }
@@ -146,7 +157,7 @@ body {
 }
 
 .art-content blockquote {
-  @apply text-slate-500  bg-gray-100 px-3 py-3 border-l-[7px] border-solid border-l-green; 
+  @apply text-slate-500 bg-gray-100 px-3 py-3 border-l-[7px] border-solid border-l-green;
 }
 
 .art-content blockquote p {
@@ -160,7 +171,7 @@ body {
 
 .art-content ol,
 .art-content ul {
-  @apply list-inside; 
+  @apply list-inside;
 }
 
 .art-content ol {
@@ -177,6 +188,73 @@ body {
 }
 
 .art-content pre {
-  @apply text-xs leading-normal p-2.5 mt-5 text-slate-500 bg-gray-100 rounded-br-sm overflow-x-auto;
+  @apply text-xs leading-normal p-4 mt-5 rounded-md text-slate-500 bg-[#282c34] rounded-br-sm overflow-x-auto;
 }
 
+.art-content > * {
+  --enter-stage: 0;
+  --enter-step: 120ms;
+  animation: enter 0.6s both;
+  animation-delay: calc(var(--enter-stage) * var(--enter-step));
+}
+
+.art-content > *:nth-child(1) {
+  --enter-stage: 1;
+}
+.art-content > *:nth-child(2) {
+  --enter-stage: 2;
+}
+.art-content > *:nth-child(3) {
+  --enter-stage: 3;
+}
+.art-content > *:nth-child(4) {
+  --enter-stage: 4;
+}
+.art-content > *:nth-child(5) {
+  --enter-stage: 5;
+}
+.art-content > *:nth-child(6) {
+  --enter-stage: 6;
+}
+.art-content > *:nth-child(7) {
+  --enter-stage: 7;
+}
+.art-content > *:nth-child(8) {
+  --enter-stage: 8;
+}
+.art-content > *:nth-child(9) {
+  --enter-stage: 9;
+}
+.art-content > *:nth-child(10) {
+  --enter-stage: 10;
+}
+.art-content > *:nth-child(11) {
+  --enter-stage: 11;
+}
+.art-content > *:nth-child(12) {
+  --enter-stage: 12;
+}
+.art-content > *:nth-child(13) {
+  --enter-stage: 13;
+}
+.art-content > *:nth-child(14) {
+  --enter-stage: 14;
+}
+.art-content > *:nth-child(15) {
+  --enter-stage: 15;
+}
+.art-content > *:nth-child(16) {
+  --enter-stage: 16;
+}
+.art-content > *:nth-child(17) {
+  --enter-stage: 17;
+}
+.art-content > *:nth-child(18) {
+  --enter-stage: 18;
+}
+.art-content > *:nth-child(19) {
+  --enter-stage: 19;
+}
+.art-content > *:nth-child(20) {
+  --enter-stage: 20;
+}
