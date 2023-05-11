@@ -52,10 +52,10 @@ export function Navigation() {
       name: "Home",
       path: "/posts",
     },
-    {
-      name: "Photos",
-      path: "/photos",
-    },
+    // {
+    //   name: "Photos",
+    //   path: "/photos",
+    // },
     {
       name: "Abort Me",
       path: "/about",
