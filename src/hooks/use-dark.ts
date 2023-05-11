@@ -18,6 +18,7 @@ export function useDark() {
   }
 
   function updateMode(mode: Mode) {
+    if (!mode) return;
     if (mode === "dark") {
       toggleDark(true);
     }
