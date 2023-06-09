@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import type { GetStaticProps } from "next";
 import Layout, { siteTitle } from "@/components/layout";
 import { Photo, getPhotosData } from "@/lib/photos";
@@ -8,7 +9,17 @@ interface PhotoHomeProps {
 }
 
 function PhotoItem({ photo }: { photo: Photo }) {
-  return <div>{photo.id}</div>;
+  return (
+    <>
+      <div>{photo.id}</div>
+      <Image
+        src={photo.url}
+        alt={photo.id}
+        width={photo.size.ExifImageWidth}
+        height={photo.size.ExifImageHeight}
+      ></Image>
+    </>
+  );
 }
 
 export default function PhotoHome({ allPhotoData }: PhotoHomeProps) {

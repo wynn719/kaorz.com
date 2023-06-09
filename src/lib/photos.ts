@@ -3,10 +3,11 @@ import fs from "fs/promises";
 import exifr from "exifr";
 import dayjs from "dayjs";
 
-const photoDirectory = path.join(process.cwd(), "photos");
+const photoDirectory = path.join(process.cwd(), "public/public/imgs/photos");
 
 export interface Photo {
   id: string;
+  url: string;
   camera: {
     Make: string; // 厂家
     Model: string; // 设备型号
@@ -22,7 +23,10 @@ export interface Photo {
     FNumber: number; // 光圈系数
     FocalLength: number; // 焦距
   };
-  size: {};
+  size: {
+    ExifImageWidth: number;
+    ExifImageHeight: number;
+  };
 }
 
 export async function getPhotosData(): Promise<Photo[]> {
@@ -36,6 +40,7 @@ export async function getPhotosData(): Promise<Photo[]> {
 
       return {
         id,
+        url: `${process.env.BASE_PATH}/public/imgs/photos/${fileName}`,
         camera: {
           Make: output.Make, // 厂家
           Model: output.Model, // 设备型号
