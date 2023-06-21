@@ -13,8 +13,8 @@ export interface Photo {
     Model: string; // 设备型号
   };
   gps: {
-    GPSLatitude: number[];
-    GPSLongitude: number[];
+    GPSLatitude: number[] | null;
+    GPSLongitude: number[] | null;
   };
   DateTimeOriginal: string;
   meta: {
@@ -46,8 +46,8 @@ export async function getPhotosData(): Promise<Photo[]> {
           Model: output.Model, // 设备型号
         },
         gps: {
-          GPSLatitude: output.GPSLatitude,
-          GPSLongitude: output.GPSLongitude,
+          GPSLatitude: output.GPSLatitude || null,
+          GPSLongitude: output.GPSLongitude || null,
         },
         DateTimeOriginal: dayjs(output.DateTimeOriginal).format(),
         meta: {

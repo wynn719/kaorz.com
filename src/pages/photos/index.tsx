@@ -10,15 +10,15 @@ interface PhotoHomeProps {
 
 function PhotoItem({ photo }: { photo: Photo }) {
   return (
-    <>
-      <div>{photo.id}</div>
+    <div className="px-5 mb-5">
       <Image
         src={photo.url}
         alt={photo.id}
         width={photo.size.ExifImageWidth}
         height={photo.size.ExifImageHeight}
       ></Image>
-    </>
+      <div className="text-white text-center p-0.5">{photo.id}</div>
+    </div>
   );
 }
 
@@ -33,7 +33,7 @@ export default function PhotoHome({ allPhotoData }: PhotoHomeProps) {
         <div className="text-white text-2xl pl-4 pb-2 lg:text-3xl lg:pb-5">
           Recent Post
         </div>
-        <div className="py-10 bg-gray-50 dark:bg-[#222831]">
+        <div className="py-5 bg-gray-50 dark:bg-[#222831]">
           {allPhotoData.map((item) => (
             <PhotoItem key={item.id} photo={item} />
           ))}
@@ -45,8 +45,6 @@ export default function PhotoHome({ allPhotoData }: PhotoHomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPhotoData = await getPhotosData();
-
-  console.log(allPhotoData);
 
   return {
     props: {
