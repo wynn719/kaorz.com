@@ -12,12 +12,15 @@ function PhotoItem({ photo }: { photo: Photo }) {
   return (
     <div className="px-5 mb-5">
       <Image
+        className="shadow hover:shadow-xl"
         src={photo.url}
         alt={photo.id}
         width={photo.size.ExifImageWidth}
         height={photo.size.ExifImageHeight}
       ></Image>
-      <div className="text-white text-center p-0.5">{photo.id}</div>
+      <div className="text-gray dark:text-white text-center p-1">
+        {photo.id}
+      </div>
     </div>
   );
 }
