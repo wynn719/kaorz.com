@@ -18,10 +18,10 @@ export interface Photo {
   };
   DateTimeOriginal: string;
   meta: {
-    ExposureTime: number; // 曝光时间 即快门速度
+    ExposureTime: number; // 快门速度
     ISO: number; // 感光度
     FNumber: number; // 光圈系数
-    FocalLength: number; // 焦距
+    FocalLengthIn35mmFormat: number; // 焦距
   };
   size: {
     ExifImageWidth: number;
@@ -54,7 +54,7 @@ export async function getPhotosData(): Promise<Photo[]> {
           ExposureTime: output.ExposureTime, // 曝光时间 即快门速度
           ISO: output.ISO, // 感光度
           FNumber: output.FNumber, // 光圈系数
-          FocalLength: output.FocalLength, // 焦距
+          FocalLengthIn35mmFormat: output.FocalLengthIn35mmFormat, // 焦距
         },
         size: {
           ExifImageWidth: output.ExifImageWidth,
@@ -64,5 +64,11 @@ export async function getPhotosData(): Promise<Photo[]> {
     })
   );
 
-  return allPhotosData;
+  return allPhotosData.sort((a, b) => {
+    if (a.DateTimeOriginal < b.DateTimeOriginal) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });;
 }

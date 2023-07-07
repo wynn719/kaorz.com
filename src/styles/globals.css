@@ -114,7 +114,7 @@ body {
 }
 
 .art-content {
-  @apply break-all;
+  @apply break-words tracking-wide;
 }
 
 /* Rich content */
@@ -122,7 +122,10 @@ body {
   @apply text-green hover:underline active:outline-none;
 }
 
-.art-content h2,
+.art-content h2 {
+  @apply mt-6;
+}
+
 .art-content h3,
 .art-content h4,
 .art-content p,
@@ -137,7 +140,7 @@ body {
 }
 
 .art-content h2::before {
-  @apply text-slate-400 pr-1 content-['#'] italic;
+  @apply text-slate-500 pr-1 content-['#'];
 }
 
 .art-content h3 {
@@ -149,7 +152,7 @@ body {
 }
 
 .art-content p {
-  @apply text-sm leading-normal;
+  @apply text-base leading-loose font-light;
 }
 
 .art-content p code {
@@ -184,7 +187,7 @@ body {
 
 .art-content ol li,
 .art-content ul li {
-  @apply text-sm leading-normal mt-1;
+  @apply text-base leading-normal mt-1;
 }
 
 .art-content pre {

@@ -44,7 +44,7 @@ export function ArticleItem({
         <header>
           {single ? (
             <header>
-              <h1 className="text-2xl font-normal text-slate-800 dark:text-slate-300">
+              <h1 className="text-2xl font-normal text-slate-800 dark:text-slate-300 mb-3">
                 {post.title}
               </h1>
             </header>

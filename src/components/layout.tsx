@@ -39,10 +39,11 @@ export const siteTitle = "Live meta";
 export const siteDesc = "Blog, life, photos and others about wynn";
 
 interface Layout {
+  showBanner?: boolean;
   children: ReactNode;
 }
 
-export default function Layout({ children }: Layout) {
+export default function Layout({ children, showBanner = true }: Layout) {
   return (
     <div>
       <Head>
@@ -71,7 +72,7 @@ export default function Layout({ children }: Layout) {
         >
           <div className={classNames("relative", "w-full", "mx-auto", "my-0")}>
             <div className="absolute left-0 -top-[419px] w-full">
-              <Banner></Banner>
+              {showBanner && <Banner></Banner>}
               <div className="lg:w-[1024px] mx-auto">{children}</div>
               <Footer></Footer>
             </div>

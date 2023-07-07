@@ -23,10 +23,14 @@ export default function PostHome({ allPostsData }: PostHomeProps) {
         <div className="py-10 bg-gray-50 dark:bg-[#222831]">
           {allPostsData.map((postItem, index) => (
             <div
-              style={{
-                animation: "enter .6s both",
-                animationDelay: `${120 * index}ms`,
-              }}
+              style={
+                index < 10
+                  ? {
+                      animation: "enter .6s both",
+                      animationDelay: `${120 * index}ms`,
+                    }
+                  : {}
+              }
               key={postItem.id}
             >
               <ArticleItem post={postItem}></ArticleItem>
