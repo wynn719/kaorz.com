@@ -37,9 +37,9 @@ function PhotoItem({ photo }: { photo: Photo }) {
           {photo.id}
         </div>
         {/* Camera info */}
-        <div className="text-gray dark:text-white text-xs">
+        <div className="text-gray dark:text-white text-xs italic">
           <div className="font-semibold">{photo.camera.Make}</div>
-          <div className="mt-1 italic">{photo.camera.Model}</div>
+          <div className="mt-1 text-xs">{photo.camera.Model}</div>
         </div>
         {/* Photo exif info */}
         <div className="text-gray dark:text-white text-xs">

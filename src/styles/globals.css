@@ -174,7 +174,7 @@ body {
 
 .art-content ol,
 .art-content ul {
-  @apply list-inside;
+  @apply pl-6;
 }
 
 .art-content ol {
@@ -187,7 +187,7 @@ body {
 
 .art-content ol li,
 .art-content ul li {
-  @apply text-base leading-normal mt-1;
+  @apply text-base font-light leading-loose pl-1.5;
 }
 
 .art-content pre {
