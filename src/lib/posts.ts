@@ -4,12 +4,18 @@ import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import dayjs from "dayjs";
-import { flattenDeep, uniq } from "lodash-es";
+import { flattenDeep, uniq, groupBy } from "lodash-es";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
 import { imageSize } from "image-size";
 
-interface PostMatter {
+export interface Post {
+  id: string;
+  title: string;
+  tag?: string[];
+  categories?: string[];
+  excerpt?: string;
+  layout?: string;
   time?: string;
 }
 
@@ -44,7 +50,7 @@ export async function getSortedPostsData() {
       const fullPath = path.join(postsDirectory, fileName);
       const fileContents = await fs.readFile(fullPath, "utf-8");
       const matterResult = matter(fileContents);
-      const matterResData = matterResult.data as PostMatter;
+      const matterResData = matterResult.data as Partial<Post>;
       const time = matterResData.time
         ? dayjs(matterResData.time).format("YYYY-MM-DD")
         : "";
@@ -56,14 +62,10 @@ export async function getSortedPostsData() {
       };
     })
   );
+  const sortPostsData = allPostsData.sort((a, b) => a.time < b.time ? 1 : -1);
+  const groupPostData = groupBy(sortPostsData, (item) => item.time.slice(0, 4));
 
-  return allPostsData.sort((a, b) => {
-    if (a.time < b.time) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
+  return groupPostData;
 }
 
 export async function getPostIds() {

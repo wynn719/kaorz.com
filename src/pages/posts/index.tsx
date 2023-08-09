@@ -2,13 +2,40 @@ import Head from "next/head";
 import type { GetStaticProps } from "next";
 import Layout, { siteTitle } from "@/components/layout";
 import { ArticleItem } from "@/components/article";
-import { getSortedPostsData } from "@/lib/posts";
+import { getSortedPostsData, Post } from "@/lib/posts";
 
 interface PostHomeProps {
-  allPostsData: any[];
+  allPostsData: Record<string, Post[]>;
 }
 
 export default function PostHome({ allPostsData }: PostHomeProps) {
+  const crtYear = `${new Date().getFullYear()}`;
+  const years = Object.keys(allPostsData).sort((a, b) => (a < b ? 1 : -1));
+  const yearListPosts = years.map((year) => (
+    <section key={year}>
+      {year !== crtYear && (
+        <div className="year-title mx-7 mb-10 lg:mx-20 lg:mb-16 tracking-widest text-center text-gray-300 dark:text-gray-600 text-base">
+          - {year} -
+        </div>
+      )}
+      {allPostsData[year].map((postItem, index) => {
+        const style =
+          index < 10
+            ? {
+                animation: "enter .6s both",
+                animationDelay: `${120 * index}ms`,
+              }
+            : {};
+
+        return (
+          <div style={style} key={postItem.id}>
+            <ArticleItem post={postItem}></ArticleItem>
+          </div>
+        );
+      })}
+    </section>
+  ));
+
   return (
     <Layout>
       <Head>
@@ -21,21 +48,7 @@ export default function PostHome({ allPostsData }: PostHomeProps) {
           Recent Post
         </div>
         <div className="py-10 bg-gray-50 dark:bg-[#222831]">
-          {allPostsData.map((postItem, index) => (
-            <div
-              style={
-                index < 10
-                  ? {
-                      animation: "enter .6s both",
-                      animationDelay: `${120 * index}ms`,
-                    }
-                  : {}
-              }
-              key={postItem.id}
-            >
-              <ArticleItem post={postItem}></ArticleItem>
-            </div>
-          ))}
+          {yearListPosts}
         </div>
       </section>
     </Layout>

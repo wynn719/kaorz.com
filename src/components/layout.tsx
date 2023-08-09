@@ -73,7 +73,7 @@ export default function Layout({ children, showBanner = true }: Layout) {
           <div className={classNames("relative", "w-full", "mx-auto", "my-0")}>
             <div className="absolute left-0 -top-[419px] w-full">
               {showBanner && <Banner></Banner>}
-              <div className="lg:w-[1024px] mx-auto">{children}</div>
+              <div className="mx-auto max-w-4xl">{children}</div>
               <Footer></Footer>
             </div>
           </div>

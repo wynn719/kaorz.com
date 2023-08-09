@@ -3,7 +3,7 @@ import Script from "next/script";
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="zh-CN">
       <Head />
       <body>
         {/* Check if dark mode is enabled during server-side rendering. */}

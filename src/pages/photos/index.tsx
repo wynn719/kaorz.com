@@ -23,9 +23,9 @@ function PhotoItem({ photo }: { photo: Photo }) {
   const createdAT = dayjs(photo.DateTimeOriginal).format("YYYY/MM/DD HH:mm");
 
   return (
-    <div className="mb-5">
+    <div className="mb-5 p-3">
       <Image
-        className="shadow hover:shadow-xl"
+        className="shadow hover:shadow-xl rounded-lg"
         src={photo.url}
         alt={photo.id}
         width={photo.size.ExifImageWidth}
@@ -38,12 +38,12 @@ function PhotoItem({ photo }: { photo: Photo }) {
         </div>
         {/* Camera info */}
         <div className="text-gray dark:text-white text-xs italic">
-          <div className="font-semibold">{photo.camera.Make}</div>
-          <div className="mt-1 text-xs">{photo.camera.Model}</div>
+          {/* <div className="font-semibold">{photo.camera.Make}</div> */}
+          <div className="text-xs">{photo.camera.Model}</div>
         </div>
         {/* Photo exif info */}
         <div className="text-gray dark:text-white text-xs">
-          <div className="inline-flex gap-2">
+          <div className="inline-flex gap-1">
             <span>{photo.meta.FocalLengthIn35mmFormat}mm</span>
             <span>f/{photo.meta.FNumber}</span>
             <span>{shutterSpeed}</span>
