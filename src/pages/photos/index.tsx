@@ -30,25 +30,32 @@ function PhotoItem({ photo }: { photo: Photo }) {
           className="shadow hover:shadow-xl"
           src={photo.url}
           alt={photo.id}
+          // placeholder={"blur"}
+          // blurDataURL={photo.thumbnailUrl}
           width={photo.size.ExifImageWidth}
           height={photo.size.ExifImageHeight}
         ></Image>
       </div>
-      <div className="flex items-start py-2 gap-2 md:flex-col md:w-40 md:sticky">
+      <div className="flex items-start py-2 gap-2 md:flex-col md:w-48 md:sticky md:h-full md:top-0">
         {/* Photo name */}
         <div className="flex-1 text-gray dark:text-white truncate font-semibold md:flex-none md:pb-4 md:text-base">
           {photo.id}
         </div>
-        {/* Camera info */}
         <div className="flex flex-col gap-1.5">
-          <div className="text-gray dark:text-white italic">
+          {/* Camera info */}
+          <div className="text-gray dark:text-white">
             <div className="text-xs inline-flex items-center gap-1">
-              <span className="text-slate-400 text-xs">Shot by </span>
+              <span className="text-slate-400 text-xs italic">Shot by </span>
               <CameraIcon className="w-3 h-3" />
               <span className="font-semibold not-italic">
                 {photo.camera.Model}
               </span>
             </div>
+          </div>
+          {/* Lens info */}
+          <div className="text-gray dark:text-white text-xs hidden md:block">
+            <span className="text-slate-400 text-xs italic">With </span>
+            {photo.camera.LensModel}
           </div>
           {/* Photo exif info */}
           <div className="text-gray dark:text-white text-xs">

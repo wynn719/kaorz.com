@@ -2,6 +2,7 @@ import path from "path";
 import fs from "fs/promises";
 import exifr from "exifr";
 import dayjs from "dayjs";
+import sharp from "sharp";
 
 const photoDirectory = path.join(process.cwd(), "public/public/imgs/photos");
 
@@ -11,6 +12,7 @@ export interface Photo {
   camera: {
     Make: string; // 厂家
     Model: string; // 设备型号
+    LensModel: string; // 镜头型号
   };
   gps: {
     GPSLatitude: number[] | null;
@@ -37,6 +39,7 @@ export async function getPhotosData(): Promise<Photo[]> {
       const fullPath = path.join(photoDirectory, fileName);
       const fileContents = await fs.readFile(fullPath);
       const output = await exifr.parse(fileContents);
+      const image = await sharp(fullPath).metadata();
 
       return {
         id,
@@ -44,6 +47,7 @@ export async function getPhotosData(): Promise<Photo[]> {
         camera: {
           Make: output.Make, // 厂家
           Model: output.Model, // 设备型号
+          LensModel: output.LensModel, // 镜头型号
         },
         gps: {
           GPSLatitude: output.GPSLatitude || null,
@@ -57,8 +61,8 @@ export async function getPhotosData(): Promise<Photo[]> {
           FocalLengthIn35mmFormat: output.FocalLengthIn35mmFormat, // 焦距
         },
         size: {
-          ExifImageWidth: output.ExifImageWidth,
-          ExifImageHeight: output.ExifImageHeight,
+          ExifImageWidth: output.ExifImageWidth || image.width || 0,
+          ExifImageHeight: output.ExifImageHeight || image.height || 0,
         },
       };
     })
