@@ -4,6 +4,7 @@ import type { GetStaticProps } from "next";
 import Layout, { siteTitle } from "@/components/layout";
 import { Photo, getPhotosData } from "@/lib/photos";
 import dayjs from "dayjs";
+import { CameraIcon } from "@heroicons/react/24/solid";
 
 interface PhotoHomeProps {
   allPhotoData: Photo[];
@@ -23,33 +24,42 @@ function PhotoItem({ photo }: { photo: Photo }) {
   const createdAT = dayjs(photo.DateTimeOriginal).format("YYYY/MM/DD HH:mm");
 
   return (
-    <div className="mb-5 p-3">
-      <Image
-        className="shadow hover:shadow-xl rounded-lg"
-        src={photo.url}
-        alt={photo.id}
-        width={photo.size.ExifImageWidth}
-        height={photo.size.ExifImageHeight}
-      ></Image>
-      <div className="flex items-center py-2 px-3 gap-3">
+    <div className="p-3 pb-5 min-h-min md:flex md:flex-row md:gap-4 md:px-4 md:py-2">
+      <div className="md:flex-1">
+        <Image
+          className="shadow hover:shadow-xl"
+          src={photo.url}
+          alt={photo.id}
+          width={photo.size.ExifImageWidth}
+          height={photo.size.ExifImageHeight}
+        ></Image>
+      </div>
+      <div className="flex items-start py-2 gap-2 md:flex-col md:w-40 md:sticky">
         {/* Photo name */}
-        <div className="flex-1 text-gray dark:text-white truncate">
+        <div className="flex-1 text-gray dark:text-white truncate font-semibold md:flex-none md:pb-4 md:text-base">
           {photo.id}
         </div>
         {/* Camera info */}
-        <div className="text-gray dark:text-white text-xs italic">
-          {/* <div className="font-semibold">{photo.camera.Make}</div> */}
-          <div className="text-xs">{photo.camera.Model}</div>
-        </div>
-        {/* Photo exif info */}
-        <div className="text-gray dark:text-white text-xs">
-          <div className="inline-flex gap-1">
-            <span>{photo.meta.FocalLengthIn35mmFormat}mm</span>
-            <span>f/{photo.meta.FNumber}</span>
-            <span>{shutterSpeed}</span>
-            <span>ISO{photo.meta.ISO}</span>
+        <div className="flex flex-col gap-1.5">
+          <div className="text-gray dark:text-white italic">
+            <div className="text-xs inline-flex items-center gap-1">
+              <span className="text-slate-400 text-xs">Shot by </span>
+              <CameraIcon className="w-3 h-3" />
+              <span className="font-semibold not-italic">
+                {photo.camera.Model}
+              </span>
+            </div>
           </div>
-          <div className="mt-1 text-slate-400">{createdAT}</div>
+          {/* Photo exif info */}
+          <div className="text-gray dark:text-white text-xs">
+            <div className="inline-flex gap-1">
+              <span>{photo.meta.FocalLengthIn35mmFormat}mm</span>
+              <span>f/{photo.meta.FNumber}</span>
+              <span>{shutterSpeed}</span>
+              <span>ISO{photo.meta.ISO}</span>
+            </div>
+            <div className="mt-1 text-slate-400">{createdAT}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -58,14 +68,13 @@ function PhotoItem({ photo }: { photo: Photo }) {
 
 export default function PhotoHome({ allPhotoData }: PhotoHomeProps) {
   return (
-    <Layout showBanner={false}>
+    <Layout showBanner={false} showNavigation={false}>
       <Head>
         <title>{siteTitle}</title>
       </Head>
 
       <section>
         <div className="bg-gray-50 dark:bg-[#222831]">
-          {/* <div className="text-white text-2xl lg:text-3xl p-3">Recent...</div> */}
           {allPhotoData.map((item) => (
             <PhotoItem key={item.id} photo={item} />
           ))}

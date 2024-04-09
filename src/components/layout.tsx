@@ -26,7 +26,9 @@ function Footer() {
   return (
     <footer className="h-10 bg-slate-200 pt-2 pb-8">
       <p className="h-5 text-center text-gray-600">
-        <span className="mr-1">Copyright © 2015</span>
+        <span className="mr-1">
+          Copyright © 2015 - {new Date().getFullYear()}
+        </span>
         <Link className="text-green" href="/about" title="About me">
           Bowei Zheng.
         </Link>
@@ -39,11 +41,16 @@ export const siteTitle = "Live meta";
 export const siteDesc = "Blog, life, photos and others about wynn";
 
 interface Layout {
-  showBanner?: boolean;
   children: ReactNode;
+  showBanner?: boolean;
+  showNavigation?: boolean;
 }
 
-export default function Layout({ children, showBanner = true }: Layout) {
+export default function Layout({
+  children,
+  showBanner = true,
+  showNavigation = true,
+}: Layout) {
   return (
     <div>
       <Head>
@@ -56,12 +63,12 @@ export default function Layout({ children, showBanner = true }: Layout) {
         {/* <meta name="twitter:card" content="summary_large_image" /> */}
       </Head>
       <main>
-        <Navigation></Navigation>
+        {showNavigation && <Navigation></Navigation>}
 
         <div
           className={classNames(
             "w-full",
-            "pt-[452px]",
+            showNavigation ? "pt-[452px]" : "",
             "bg-fixed",
             "bg-center",
             "bg-top",
@@ -71,7 +78,12 @@ export default function Layout({ children, showBanner = true }: Layout) {
           style={{ backgroundImage: `url(${banner.src})` }}
         >
           <div className={classNames("relative", "w-full", "mx-auto", "my-0")}>
-            <div className="absolute left-0 -top-[419px] w-full">
+            <div
+              className={classNames(
+                "absolute left-0 w-full",
+                showNavigation ? "-top-[419px]" : ""
+              )}
+            >
               {showBanner && <Banner></Banner>}
               <div className="mx-auto max-w-4xl">{children}</div>
               <Footer></Footer>
