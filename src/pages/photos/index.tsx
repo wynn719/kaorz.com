@@ -19,7 +19,7 @@ function shutterSpeedHumanReadable(exposureTime: number): string {
   }
 }
 
-function PhotoItem({ photo }: { photo: Photo }) {
+function PhotoItem({ photo, index = 3 }: { photo: Photo; index: number }) {
   const shutterSpeed = shutterSpeedHumanReadable(photo.meta.ExposureTime);
   const createdAT = dayjs(photo.DateTimeOriginal).format("YYYY/MM/DD HH:mm");
 
@@ -27,13 +27,13 @@ function PhotoItem({ photo }: { photo: Photo }) {
     <div className="p-3 pb-5 min-h-min md:flex md:flex-row md:gap-4 md:px-4 md:py-2">
       <div className="md:flex-1">
         <Image
-          className="shadow hover:shadow-xl"
+          className="shadow"
           src={photo.url}
           alt={photo.id}
-          // placeholder={"blur"}
-          // blurDataURL={photo.thumbnailUrl}
           width={photo.size.ExifImageWidth}
           height={photo.size.ExifImageHeight}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority={index < 3}
         ></Image>
       </div>
       <div className="flex items-start py-2 gap-2 md:flex-col md:w-48 md:sticky md:h-full md:top-0">
@@ -75,15 +75,15 @@ function PhotoItem({ photo }: { photo: Photo }) {
 
 export default function PhotoHome({ allPhotoData }: PhotoHomeProps) {
   return (
-    <Layout showBanner={false} showNavigation={false}>
+    <Layout showBanner={false} showNavigation={true}>
       <Head>
         <title>{siteTitle}</title>
       </Head>
 
       <section>
         <div className="bg-gray-50 dark:bg-[#222831]">
-          {allPhotoData.map((item) => (
-            <PhotoItem key={item.id} photo={item} />
+          {allPhotoData.map((item, index) => (
+            <PhotoItem key={item.id} photo={item} index={index} />
           ))}
         </div>
       </section>

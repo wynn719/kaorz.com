@@ -75,7 +75,7 @@ export default function Layout({
             "bg-no-repeat",
             "bg-[length:2000px]"
           )}
-          style={{ backgroundImage: `url(${banner.src})` }}
+          style={showBanner ? { backgroundImage: `url(${banner.src})` } : {}}
         >
           <div className={classNames("relative", "w-full", "mx-auto", "my-0")}>
             <div
