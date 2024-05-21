@@ -1,36 +1,41 @@
 import { PrismaClient, Prisma } from "@prisma/client";
+import { SHA256 as sha256 } from "crypto-js";
 
 const prisma = new PrismaClient();
 
 const userData: Prisma.UserCreateInput[] = [
   {
     name: "zaibeiwo",
-    password: "zaibeiwo",
+    password: sha256("test").toString(),
   },
   {
     name: "yaoyao",
-    password: "yaoyao",
+    password: sha256("test").toString(),
   },
 ];
 
-const eventData: Prisma.EventCreateInput[] = [
-  {
-    name: "shit",
-  },
-];
+const eventData: Prisma.EventCreateInput = {
+  name: "shit",
+};
 
 async function main() {
   console.log(`Start seeding ...`);
-  for (const e of eventData) {
-    const event = await prisma.event.create({
-      data: e,
-    });
-    console.log(`Created event with id: ${event.id}`);
-  }
+  const event = await prisma.event.create({
+    data: eventData,
+  });
+  console.log(`Created event with id: ${event.id}`);
+
   for (const u of userData) {
     const user = await prisma.user.create({
       data: u,
     });
+    await prisma.eventRecord.create({
+      data: {
+        userId: user.id,
+        eventId: event.id,
+      },
+    });
+
     console.log(`Created user with id: ${user.id}`);
   }
   console.log(`Seeding finished.`);

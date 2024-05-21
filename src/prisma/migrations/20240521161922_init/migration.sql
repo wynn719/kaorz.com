@@ -9,9 +9,9 @@ CREATE TABLE "events" (
 -- CreateTable
 CREATE TABLE "event_records" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "user_id" INTEGER,
+    "user_id" INTEGER NOT NULL,
     "event_id" INTEGER NOT NULL,
-    CONSTRAINT "event_records_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT "event_records_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "event_records_event_id_fkey" FOREIGN KEY ("event_id") REFERENCES "events" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -61,9 +61,6 @@ CREATE TABLE "verificationtokens" (
     "token" TEXT NOT NULL,
     "expires" DATETIME NOT NULL
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "event_records_event_id_key" ON "event_records"("event_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "accounts_provider_provider_account_id_key" ON "accounts"("provider", "provider_account_id");

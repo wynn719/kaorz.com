@@ -8,21 +8,21 @@ datasource db {
 }
 
 model Event {
-  id          Int          @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String
-  createdAt   DateTime     @default(now()) @map(name: "created_at")
-  updatedAt   DateTime     @updatedAt @map(name: "updated_at")
-  EventRecord EventRecord?
+  createdAt   DateTime      @default(now()) @map(name: "created_at")
+  updatedAt   DateTime      @updatedAt @map(name: "updated_at")
+  EventRecord EventRecord[]
 
   @@map("events")
 }
 
 model EventRecord {
   id      Int   @id @default(autoincrement())
-  user    User? @relation(fields: [userId], references: [id])
-  userId  Int?  @map("user_id")
+  user    User  @relation(fields: [userId], references: [id])
+  userId  Int   @map("user_id")
+  eventId Int   @map("event_id")
   event   Event @relation(fields: [eventId], references: [id])
-  eventId Int   @unique @map("event_id")
 
   @@map("event_records")
 }
