@@ -27,7 +27,7 @@ export const options: NextAuthOptions = {
         };
 
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/user/login`,
+          `${process.env.BASE_PATH}/api/user/login`,
           {
             method: "POST",
             body: JSON.stringify(userCredentials),
@@ -48,10 +48,12 @@ export const options: NextAuthOptions = {
   ],
   adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
-
   session: { strategy: "jwt", maxAge: 24 * 60 * 60 },
-
   jwt: {
     maxAge: 60 * 60 * 24 * 30,
+  },
+  pages: {
+    signIn: "/auth/signin",
+    signOut: "/auth/signout",
   },
 };
