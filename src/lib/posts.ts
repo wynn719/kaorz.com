@@ -17,6 +17,7 @@ export interface Post {
   excerpt?: string;
   layout?: string;
   time?: string;
+  draft?: boolean;
 }
 
 hljs.configure({ ignoreUnescapedHTML: true });
@@ -62,7 +63,8 @@ export async function getSortedPostsData() {
       };
     })
   );
-  const sortPostsData = allPostsData.sort((a, b) => a.time < b.time ? 1 : -1);
+  const publishPostsData = allPostsData.filter((item) => !item.draft);
+  const sortPostsData = publishPostsData.sort((a, b) => a.time < b.time ? 1 : -1);
   const groupPostData = groupBy(sortPostsData, (item) => item.time.slice(0, 4));
 
   return groupPostData;
