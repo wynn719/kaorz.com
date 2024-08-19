@@ -6,6 +6,7 @@ import { Navigation } from "@/components/navigation";
 import { TopDown } from "@/components/top-down";
 import classNames from "classnames";
 import { Analytic } from "@/components/analytic";
+import { ParticlesAnimation } from "./particles-animation";
 
 const isProduction = true || process.env.NODE_ENV === "production";
 
@@ -91,6 +92,7 @@ export default function Layout({
           </div>
         </div>
 
+        <ParticlesAnimation></ParticlesAnimation>
         <TopDown></TopDown>
       </main>
       {isProduction && <Analytic></Analytic>}
