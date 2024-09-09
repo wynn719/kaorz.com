@@ -120,7 +120,7 @@ export default function About() {
         <UserInfo></UserInfo>
         <Internships></Internships>
         <Learning></Learning>
-        <SocialLinks></SocialLinks>
+        {/* <SocialLinks></SocialLinks> */}
       </div>
     </Layout>
   );

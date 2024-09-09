@@ -13,10 +13,10 @@ function Banner() {
   return (
     <div className="text-center h-32 mb-24">
       <h1 className="text-5xl leading-normal mt-9 font-normal font-mono text-white">
-        Living <br /> Chaplin
+        Live <br /> Meta
       </h1>
       <p className="text-lg leading-normal text-white italic tracking-widest">
-        Wayne Zheng
+        Zaibeiwo
       </p>
     </div>
   );

@@ -205,9 +205,9 @@ arrLis.forEach(function () {}); // 数组才能实用forEach
 `Array.of()`可以快速的将变量或者常量进行组合，返回新的数组
 
 ```javascript
-let x = "wynne",
-  y = "zheng";
-console.log(Array.of(x, y)); // ['wynne', 'zheng']
+let x = "Man",
+  y = "Yip";
+console.log(Array.of(x, y)); // ['Man', 'Yip']
 ```
 
 ### 更丰富的查找功能 find()&findIndex()，includes()
