@@ -18,9 +18,9 @@ export interface Photo {
     GPSLatitude: number[] | null;
     GPSLongitude: number[] | null;
   };
-  DateTimeOriginal: string;
+  createdAt: string;
   meta: {
-    ExposureTime: number; // 快门速度
+    ExposureTime: string; // 快门速度
     ISO: number; // 感光度
     FNumber: number; // 光圈系数
     FocalLengthIn35mmFormat: number; // 焦距
@@ -31,7 +31,40 @@ export interface Photo {
   };
 }
 
-export async function getPhotosData(): Promise<Photo[]> {
+function getMake(make: string) {
+  const Makes = {
+    "NIKON CORPORATION": "NIKON",
+    "SONY": "SONY",
+    "Apple": "Apple",
+  };
+
+  return Makes[make as keyof typeof Makes] || make;
+}
+
+function getModel(model: string) {
+  const Models = {
+    "NIKON Z 30": "Z30",
+    "ILCE-7CM2": "a7CM2",
+    "ILCE-5000": "a5000"
+  };
+
+  return Models[model as keyof typeof Models] || model;
+}
+
+function getShutterSpeedHumanReadable(exposureTime: number): string {
+  if (exposureTime >= 1) {
+    return `${Math.floor(exposureTime)}s`;
+  } else {
+    const fraction = 1 / exposureTime;
+    return `1/${fraction}s`;
+  }
+}
+
+function getCreatedAtHumanReadable(date: string): string {
+  return dayjs(date).format("YYYY/MM/DD HH:mm");
+}
+
+export async function getPhotoList(): Promise<Photo[]> {
   const fileNames = await fs.readdir(photoDirectory);
   const allPhotosData = await Promise.all(
     fileNames.map(async (fileName) => {
@@ -45,17 +78,17 @@ export async function getPhotosData(): Promise<Photo[]> {
         id,
         url: `${process.env.BASE_PATH}/public/imgs/photos/${fileName}`,
         camera: {
-          Make: output.Make, // 厂家
-          Model: output.Model, // 设备型号
+          Make: getMake(output.Make), // 厂家
+          Model: getModel(output.Model), // 设备型号
           LensModel: output.LensModel, // 镜头型号
         },
         gps: {
           GPSLatitude: output.GPSLatitude || null,
           GPSLongitude: output.GPSLongitude || null,
         },
-        DateTimeOriginal: dayjs(output.DateTimeOriginal).format(),
+        createdAt: getCreatedAtHumanReadable(output.DateTimeOriginal),
         meta: {
-          ExposureTime: output.ExposureTime, // 曝光时间 即快门速度
+          ExposureTime: getShutterSpeedHumanReadable(output.ExposureTime),
           ISO: output.ISO, // 感光度
           FNumber: output.FNumber, // 光圈系数
           FocalLengthIn35mmFormat: output.FocalLengthIn35mmFormat, // 焦距
@@ -69,7 +102,7 @@ export async function getPhotosData(): Promise<Photo[]> {
   );
 
   return allPhotosData.sort((a, b) => {
-    if (a.DateTimeOriginal < b.DateTimeOriginal) {
+    if (a.createdAt < b.createdAt) {
       return 1;
     } else {
       return -1;
