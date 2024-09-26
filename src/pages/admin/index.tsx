@@ -9,6 +9,7 @@ import { Button } from "@/pages/admin/components/ui/button";
 import { ProductsTable } from "./components/products-table";
 import { DashboardLayout } from "./components/layout";
 // import { getProducts } from "@/lib/db";
+import { useSession, signIn } from "next-auth/react";
 
 function getProducts(search: string, offset: number) {
   return {
@@ -78,9 +79,20 @@ function ProductsPage({
 }
 
 export default function Index() {
-  return (
-    <DashboardLayout>
-      {ProductsPage({ searchParams: { q: "", offset: "0" } })}
-    </DashboardLayout>
-  );
+  const { data: session } = useSession();
+
+  if (!session) {
+    signIn();
+    return;
+  }
+
+  if (session) {
+    return (
+      <DashboardLayout>
+        {ProductsPage({ searchParams: { q: "", offset: "0" } })}
+      </DashboardLayout>
+    );
+  }
+
+  return null;
 }

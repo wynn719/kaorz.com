@@ -2,6 +2,7 @@
 const fs = require("fs");
 const inquirer = require("inquirer").default;
 const dayjs = require("dayjs");
+const { translateTitle } = require("./utils");
 
 (async () => {
   const { title } = await inquirer.prompt([

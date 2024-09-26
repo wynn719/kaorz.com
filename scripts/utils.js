@@ -3,7 +3,7 @@ const tencentcloud = require("tencentcloud-sdk-nodejs");
 
 require("dotenv").config({ path: path.join(__dirname, "../.env.local") });
 
-async function translateTitle(text) {
+export async function translateTitle(text) {
   const TmtClient = tencentcloud.tmt.v20180321.Client;
   const clientConfig = {
     credential: {
