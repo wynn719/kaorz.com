@@ -5,9 +5,14 @@
   "tsx": true,
   "tailwind": {
     "config": "tailwind.config.js",
-    "css": "src/pages/admin/globals.css",
+    "css": "@/pages/admin/globals.css",
     "baseColor": "slate",
     "cssVariables": true,
     "prefix": ""
+  },
+  "aliases": {
+    "components": "@/pages/admin/components",
+    "utils": "@/pages/admin/lib/utils",
+    "ui": "@/pages/admin/components/ui"
   }
 }

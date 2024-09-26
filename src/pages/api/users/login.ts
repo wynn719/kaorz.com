@@ -30,11 +30,10 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
       password: true,
     },
   });
+
   if (user?.password == hashPassword(req.body.password)) {
-    console.debug("password correct");
     res.json(omit(user, "password"));
   } else {
-    console.debug("incorrect credentials");
     res.status(400).end("Invalid credentials");
   }
 }

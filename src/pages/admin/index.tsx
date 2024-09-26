@@ -79,14 +79,13 @@ function ProductsPage({
 }
 
 export default function Index() {
-  const { data: session } = useSession();
+  const { status } = useSession();
 
-  if (!session) {
-    signIn();
-    return;
+  if (status === "loading") {
+    return <div>Loading...</div>;
   }
 
-  if (session) {
+  if (status === "authenticated") {
     return (
       <DashboardLayout>
         {ProductsPage({ searchParams: { q: "", offset: "0" } })}
@@ -94,5 +93,9 @@ export default function Index() {
     );
   }
 
-  return null;
+  return (
+    <>
+      <button onClick={() => signIn()}>sign in</button>
+    </>
+  );
 }

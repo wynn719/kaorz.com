@@ -25,6 +25,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   eventRecords EventRecord[]
+  Photo        Photo[]
 
   @@map(name: "users")
 }
@@ -115,4 +116,28 @@ model Like {
   targetId       String? // The ID of the target being liked
   targetType     String // Enum to specify the type of target being liked
   createdAt      DateTime @default(now())
+}
+
+model Photo {
+  id                      String   @id @default(cuid())
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  userId                  String   @map("user_id")
+  User                    User     @relation(fields: [userId], references: [id])
+  url                     String
+  title                   String
+  description             String?
+  camera                  String
+  cameraLen               String
+  latitude                String?
+  longitude               String?
+  takeAt                  DateTime @default(now())
+  exposureTime            String // 快门速度
+  iso                     String // 感光度
+  fNumber                 String // 光圈系数
+  focalLengthIn35mmFormat String // 焦距
+  width                   Int
+  height                  Int
+
+  @@map("photos")
 }
