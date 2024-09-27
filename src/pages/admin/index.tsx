@@ -6,40 +6,68 @@ import {
 } from "@/pages/admin/components/ui/tabs";
 import { File, PlusCircle } from "lucide-react";
 import { Button } from "@/pages/admin/components/ui/button";
-import { ProductsTable } from "./components/products-table";
+import { PhotoTable } from "./components/photo-table";
 import { DashboardLayout } from "./components/layout";
-// import { getProducts } from "@/lib/db";
 import { useSession, signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogHeader,
+  DialogFooter,
+} from "./components/ui/dialog";
 
-function getProducts(search: string, offset: number) {
-  return {
-    products: [
-      {
-        name: "<NAME>",
-        id: 1,
-        status: "active",
-        imageUrl: "",
-        price: "$100",
-        stock: 100,
-        availableAt: new Date(),
-      },
-    ],
-    newOffset: 20,
-    totalProducts: 100,
-  };
+function UploadPhotoDialog() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button size="sm" className="h-8 gap-1">
+          <PlusCircle className="h-3.5 w-3.5" />
+          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+            Add Photos
+          </span>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Add Photos</DialogTitle>
+          <DialogDescription>Select your photos to upload</DialogDescription>
+        </DialogHeader>
+
+        <DialogFooter>
+          <Button type="submit">Save changes</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
 }
 
-function ProductsPage({
+function PhotoPage({
   searchParams = { q: "", offset: "0" },
 }: {
   searchParams: { q: string; offset: string };
 }) {
-  const search = searchParams.q ?? "";
-  const offset = searchParams.offset ?? 0;
-  const { products, newOffset, totalProducts } = getProducts(
-    search,
-    Number(offset)
-  );
+  // const search = searchParams.q ?? "";
+  // const offset = searchParams.offset ?? 0;
+  // const { products, newOffset, totalProducts } = getProducts(
+  //   search,
+  //   Number(offset)
+  // );
+
+  const newOffset = 0;
+  const total = 100;
+  const [photos, setPhotos] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("/blog/api/photos")
+      .then((res) => res.json())
+      .then((data) => {
+        setPhotos(data.photos);
+      });
+  }, []);
 
   return (
     <Tabs defaultValue="all">
@@ -48,31 +76,13 @@ function ProductsPage({
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="active">Active</TabsTrigger>
           <TabsTrigger value="draft">Draft</TabsTrigger>
-          <TabsTrigger value="archived" className="hidden sm:flex">
-            Archived
-          </TabsTrigger>
         </TabsList>
         <div className="ml-auto flex items-center gap-2">
-          <Button size="sm" variant="outline" className="h-8 gap-1">
-            <File className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Export
-            </span>
-          </Button>
-          <Button size="sm" className="h-8 gap-1">
-            <PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Add Product
-            </span>
-          </Button>
+          <UploadPhotoDialog />
         </div>
       </div>
       <TabsContent value="all">
-        <ProductsTable
-          products={products}
-          offset={newOffset ?? 0}
-          totalProducts={totalProducts}
-        />
+        <PhotoTable photos={photos} offset={newOffset ?? 0} total={total} />
       </TabsContent>
     </Tabs>
   );
@@ -88,7 +98,7 @@ export default function Index() {
   if (status === "authenticated") {
     return (
       <DashboardLayout>
-        {ProductsPage({ searchParams: { q: "", offset: "0" } })}
+        <PhotoPage searchParams={{ q: "", offset: "0" }} />
       </DashboardLayout>
     );
   }

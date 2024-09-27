@@ -2,12 +2,11 @@ import Link from "next/link";
 import {
   Home,
   LineChart,
-  Package,
   Package2,
   PanelLeft,
   Settings,
-  ShoppingCart,
-  Users2,
+  ImageIcon,
+  FileTextIcon,
 } from "lucide-react";
 
 import {
@@ -72,16 +71,12 @@ function DesktopNav() {
           <Home className="h-5 w-5" />
         </NavItem>
 
-        <NavItem href="#" label="Orders">
-          <ShoppingCart className="h-5 w-5" />
+        <NavItem href="#" label="Posts">
+          <FileTextIcon className="h-5 w-5" />
         </NavItem>
 
-        <NavItem href="/" label="Products">
-          <Package className="h-5 w-5" />
-        </NavItem>
-
-        <NavItem href="/customers" label="Customers">
-          <Users2 className="h-5 w-5" />
+        <NavItem href="#" label="Photos">
+          <ImageIcon className="h-5 w-5" />
         </NavItem>
 
         <NavItem href="#" label="Analytics">
@@ -135,22 +130,15 @@ function MobileNav() {
             href="#"
             className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
           >
-            <ShoppingCart className="h-5 w-5" />
-            Orders
-          </Link>
-          <Link
-            href="#"
-            className="flex items-center gap-4 px-2.5 text-foreground"
-          >
-            <Package className="h-5 w-5" />
-            Products
+            <FileTextIcon className="h-5 w-5" />
+            Posts
           </Link>
           <Link
             href="#"
             className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
           >
-            <Users2 className="h-5 w-5" />
-            Customers
+            <ImageIcon className="h-5 w-5" />
+            Photos
           </Link>
           <Link
             href="#"

@@ -23,29 +23,26 @@ type SelectProduct = {
   availableAt: Date;
 };
 
-export function Product({ product }: { product: SelectProduct }) {
+export function Photo({ photo }: { photo: any }) {
   return (
     <TableRow>
       <TableCell className="hidden sm:table-cell">
         <Image
           alt="Product image"
           className="aspect-square rounded-md object-cover"
+          src={photo.url}
           height="64"
-          src={product.imageUrl}
           width="64"
         />
       </TableCell>
-      <TableCell className="font-medium">{product.name}</TableCell>
+      <TableCell className="font-medium">{photo.title}</TableCell>
+      <TableCell className="font-medium">{photo.description}</TableCell>
       <TableCell>
         <Badge variant="outline" className="capitalize">
-          {product.status}
+          {photo.status}
         </Badge>
       </TableCell>
-      <TableCell className="hidden md:table-cell">{`$${product.price}`}</TableCell>
-      <TableCell className="hidden md:table-cell">{product.stock}</TableCell>
-      <TableCell className="hidden md:table-cell">
-        {product.availableAt.toLocaleDateString("en-US")}
-      </TableCell>
+      <TableCell className="hidden md:table-cell">{photo.takeAt}</TableCell>
       <TableCell>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

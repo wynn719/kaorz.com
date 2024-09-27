@@ -164,7 +164,7 @@ body {
 }
 
 /* Animations */
-@keyframes fadeIn {
+/* @keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -184,7 +184,7 @@ body {
     opacity: 1;
     transform: none;
   }
-}
+} */
 
 .art-content {
   @apply break-words tracking-wide;
